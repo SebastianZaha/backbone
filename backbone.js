@@ -39,7 +39,7 @@
   if (!_ && (typeof require !== 'undefined')) _ = require('underscore');
 
   // For Backbone's purposes, jQuery, Zepto, or Ender owns the `$` variable.
-  var $ = root.jQuery || root.Zepto || root.ender;
+  var $ = Backbone.$ = root.jQuery || root.Zepto || root.ender;
 
   // Set the JavaScript library that will be used for DOM manipulation and
   // Ajax calls (a.k.a. the `$` variable). By default Backbone will use: jQuery,
@@ -47,7 +47,7 @@
   // alternate JavaScript library (or a mock library for testing your views
   // outside of a browser).
   Backbone.setDomLibrary = function(lib) {
-    $ = lib;
+    $ = Backbone.$ = lib;
   };
 
   // Runs Backbone.js in *noConflict* mode, returning the `Backbone` variable

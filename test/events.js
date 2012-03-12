@@ -1,4 +1,4 @@
-$(document).ready(function() {
+Backbone.$(document).ready(function() {
 
   module("Backbone.Events");
 

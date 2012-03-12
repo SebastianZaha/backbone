@@ -1,11 +1,11 @@
-$(document).ready(function() {
+Backbone.$(document).ready(function() {
 
   // Variable to catch the last request.
   var lastRequest = null;
   // Variable to catch ajax params.
   var ajaxParams = null;
   var sync = Backbone.sync;
-  var ajax = $.ajax;
+  var ajax = Backbone.$.ajax;
   var urlRoot = null;
 
   var proxy = Backbone.Model.extend();
@@ -34,14 +34,14 @@ $(document).ready(function() {
         };
         sync.apply(this, arguments);
       };
-      $.ajax = function(params) { ajaxParams = params; };
+      Backbone.$.ajax = function(params) { ajaxParams = params; };
       urlRoot = Backbone.Model.prototype.urlRoot;
       Backbone.Model.prototype.urlRoot = '/';
     },
 
     teardown: function() {
       Backbone.sync = sync;
-      $.ajax = ajax;
+      Backbone.$.ajax = ajax;
       Backbone.Model.prototype.urlRoot = urlRoot;
     }
 

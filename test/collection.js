@@ -1,4 +1,4 @@
-$(document).ready(function() {
+Backbone.$(document).ready(function() {
 
   var lastRequest = null;
   var sync = Backbone.sync;

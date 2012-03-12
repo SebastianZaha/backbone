@@ -1,4 +1,4 @@
-$(document).ready(function() {
+Backbone.$(document).ready(function() {
 
   var view;
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
     var div = view.make('div', {id: 'test-div'}, "one two three");
     equal(div.tagName.toLowerCase(), 'div');
     equal(div.id, 'test-div');
-    equal($(div).text(), 'one two three');
+    equal(Backbone.$(div).text(), 'one two three');
   });
 
   test("View: initialize", function() {
@@ -51,14 +51,14 @@ $(document).ready(function() {
     view.$el.bind('click', function(){ counter2++; });
     var events = {"click #qunit-banner": "increment"};
     view.delegateEvents(events);
-    $('#qunit-banner').trigger('click');
+    Backbone.$('#qunit-banner').trigger('click');
     equal(counter, 1);
     equal(counter2, 1);
-    $('#qunit-banner').trigger('click');
+    Backbone.$('#qunit-banner').trigger('click');
     equal(counter, 2);
     equal(counter2, 2);
     view.delegateEvents(events);
-    $('#qunit-banner').trigger('click');
+    Backbone.$('#qunit-banner').trigger('click');
     equal(counter, 3);
     equal(counter2, 3);
   });
@@ -68,12 +68,12 @@ $(document).ready(function() {
     view.setElement("#qunit-banner");
     var events = {"click": function() { this.counter++; }};
     view.delegateEvents(events);
-    $('#qunit-banner').trigger('click');
+    Backbone.$('#qunit-banner').trigger('click');
     equal(view.counter, 1);
-    $('#qunit-banner').trigger('click');
+    Backbone.$('#qunit-banner').trigger('click');
     equal(view.counter, 2);
     view.delegateEvents(events);
-    $('#qunit-banner').trigger('click');
+    Backbone.$('#qunit-banner').trigger('click');
     equal(view.counter, 3);
   });
 
@@ -82,19 +82,19 @@ $(document).ready(function() {
     var counter2 = 0;
     view.setElement(document.body);
     view.increment = function(){ counter++; };
-    $(view.el).unbind('click');
-    $(view.el).bind('click', function(){ counter2++; });
+    Backbone.$(view.el).unbind('click');
+    Backbone.$(view.el).bind('click', function(){ counter2++; });
     var events = {"click #qunit-userAgent": "increment"};
     view.delegateEvents(events);
-    $('#qunit-userAgent').trigger('click');
+    Backbone.$('#qunit-userAgent').trigger('click');
     equal(counter, 1);
     equal(counter2, 1);
     view.undelegateEvents();
-    $('#qunit-userAgent').trigger('click');
+    Backbone.$('#qunit-userAgent').trigger('click');
     equal(counter, 1);
     equal(counter2, 2);
     view.delegateEvents(events);
-    $('#qunit-userAgent').trigger('click');
+    Backbone.$('#qunit-userAgent').trigger('click');
     equal(counter, 2);
     equal(counter2, 3);
   });
@@ -118,7 +118,7 @@ $(document).ready(function() {
       el: "body > h2"
     });
     view = new ViewClass;
-    equal(view.el, $("#qunit-banner").get(0));
+    equal(view.el, Backbone.$("#qunit-banner").get(0));
 
     ViewClass = Backbone.View.extend({
       el: "#nonexistent"
@@ -144,7 +144,7 @@ $(document).ready(function() {
 
   test("View: multiple views per element", function() {
     var count = 0, ViewClass = Backbone.View.extend({
-      el: $("body"),
+      el: Backbone.$("body"),
       events: {
         "click": "click"
       },
@@ -154,22 +154,22 @@ $(document).ready(function() {
     });
 
     var view1 = new ViewClass;
-    $("body").trigger("click");
+    Backbone.$("body").trigger("click");
     equal(1, count);
 
     var view2 = new ViewClass;
-    $("body").trigger("click");
+    Backbone.$("body").trigger("click");
     equal(3, count);
 
     view1.delegateEvents();
-    $("body").trigger("click");
+    Backbone.$("body").trigger("click");
     equal(5, count);
   });
 
   test("View: custom events, with namespaces", function() {
     var count = 0;
     var ViewClass = Backbone.View.extend({
-      el: $('body'),
+      el: Backbone.$('body'),
       events: function() {
         return {"fake$event.namespaced": "run"};
       },
@@ -179,24 +179,24 @@ $(document).ready(function() {
     });
 
     var view = new ViewClass;
-    $('body').trigger('fake$event').trigger('fake$event');
+    Backbone.$('body').trigger('fake$event').trigger('fake$event');
     equal(count, 2);
-    $('body').unbind('.namespaced');
-    $('body').trigger('fake$event');
+    Backbone.$('body').unbind('.namespaced');
+    Backbone.$('body').trigger('fake$event');
     equal(count, 2);
   });
 
   test("#1048 - setElement uses provided object.", function() {
-    var $el = $('body');
+    var $el = Backbone.$('body');
     var view = new Backbone.View({el: $el});
     ok(view.$el === $el);
-    view.setElement($el = $($el));
+    view.setElement($el = Backbone.$($el));
     ok(view.$el === $el);
   });
 
   test("#986 - Undelegate before changing element.", 1, function() {
-    var a = $('<button></button>');
-    var b = $('<button></button>');
+    var a = Backbone.$('<button></button>');
+    var b = Backbone.$('<button></button>');
     var View = Backbone.View.extend({
       events: {click: function(e) { ok(view.el === e.target); }}
     });

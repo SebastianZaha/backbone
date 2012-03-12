@@ -1,4 +1,4 @@
-$(document).ready(function() {
+Backbone.$(document).ready(function() {
 
   var router = null;
   var lastRoute = null;

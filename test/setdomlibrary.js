@@ -1,4 +1,4 @@
-$(document).ready(function(jQuery) {
+Backbone.$(document).ready(function(jQuery) {
 
   // a mock object that looks sufficiently jQuery-ish
   var myLib = function() {

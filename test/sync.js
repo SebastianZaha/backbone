@@ -1,6 +1,6 @@
-$(document).ready(function() {
+Backbone.$(document).ready(function() {
 
-  var ajax = $.ajax
+  var ajax = Backbone.$.ajax
   var lastRequest = null;
 
   var Library = Backbone.Collection.extend({
@@ -18,14 +18,14 @@ $(document).ready(function() {
 
     setup : function() {
       library = new Library();
-      $.ajax = function(obj) {
+      Backbone.$.ajax = function(obj) {
         lastRequest = obj;
       };
       library.create(attrs, {wait: false});
     },
 
     teardown: function() {
-      $.ajax = ajax;
+      Backbone.$.ajax = ajax;
     }
 
   });
